@@ -1,0 +1,190 @@
+package com.swshcool.youn_app;
+
+//로그인 화면
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import com.swcodingschool.guibasic.BookInfo;
+import com.swcodingschool.guibasic.DBUtil;
+import com.swcodingschool.guibasic.Join;
+import com.swcodingschool.guibasic.UserManager;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
+
+public class Login extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField t_id;
+	private JPasswordField t_pw;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					if (DB.dbconn == null) DB.DBConnect();
+					
+					Login frame = new Login();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Login() {
+		setTitle("SIMPLE MEMO");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(176, 196, 222));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("ID");
+		lblNewLabel.setForeground(new Color(153, 50, 204));
+		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 16));
+		lblNewLabel.setBounds(12, 183, 25, 30);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblPw = new JLabel("PW");
+		lblPw.setForeground(new Color(153, 50, 204));
+		lblPw.setFont(new Font("굴림", Font.BOLD, 16));
+		lblPw.setBounds(12, 216, 25, 39);
+		contentPane.add(lblPw);
+		
+		t_id = new JTextField();
+		t_id.setBounds(49, 185, 126, 30);
+		contentPane.add(t_id);
+		t_id.setColumns(20);
+		
+		JButton tb_login = new JButton("Login");
+		tb_login.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (DB.dbconn == null)
+					DB.DBConnect();
+				String id = t_id.getText();
+				String pw = new String(t_pw.getPassword());
+				
+				String sql = "SELECT * FROM tbluser WHERE username=? AND userpwd=?";
+				
+				try { 
+					PreparedStatement pstmt = DB.dbconn.prepareStatement(sql);
+					pstmt.setString(1, id);
+					pstmt.setString(2, pw);
+					
+					ResultSet rs = pstmt.executeQuery();
+					
+					if(rs.next()) { // 해당 계정이 있으면, 정상 로그인
+						rs.close();
+						pstmt.close();
+						//System.out.println("로그인성공");
+						// 애플리케이션을 띄워준다.
+						// 로그인창을 닫고....
+						dispose();
+						if(id.equals("admin")) {
+							User user = new User();
+							user.setVisible(true);
+						}else {
+							Home apphome = new Home(); // 새 프레임을 생성하고
+							apphome.setVisible(true); // 프레임을 보이도록 한다.
+						}
+					}else {// 해당 계정이 없음
+						//System.out.println("아이디와 비번을 다시 확인해주세요.");
+						JOptionPane.showMessageDialog(null, "아이디와 비번을 다시 확인해주세요.");
+					}
+				}catch(SQLException elogin) {
+					System.out.println("[MyMSG]SQL Exception Error : " + elogin.getMessage());
+					elogin.printStackTrace();
+				}
+			}
+		});
+		tb_login.setBackground(new Color(255, 182, 193));
+		tb_login.setForeground(new Color(153, 50, 204));
+		tb_login.setFont(new Font("굴림", Font.BOLD, 16));
+		tb_login.setBounds(181, 183, 87, 68);
+		contentPane.add(tb_login);
+		
+		JButton tb_join = new JButton("Join");
+		tb_join.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				dispose();//현재 창을 닫고
+				Join join = new Join()
+				
+				Join join = new Join();//새 창 객체 생성
+				join.setVisible(true);//새 창 객체를 보이도록 
+			}
+		});	
+				
+		
+		tb_join.setFont(new Font("굴림", Font.BOLD, 16));
+		tb_join.setBackground(new Color(255, 182, 193));
+		tb_join.setForeground(new Color(153, 50, 204));
+		tb_join.setBounds(275, 183, 75, 68);
+		contentPane.add(tb_join);
+		
+		JLabel lblNewLabel_1 = new JLabel("\"HELLO WORLD\"");
+		lblNewLabel_1.setForeground(new Color(153, 50, 204));
+		lblNewLabel_1.setFont(new Font("굴림", Font.BOLD, 37));
+		lblNewLabel_1.setBounds(45, 66, 335, 55);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Login");
+		lblNewLabel_2.setForeground(new Color(153, 50, 204));
+		lblNewLabel_2.setFont(new Font("굴림", Font.BOLD, 16));
+		lblNewLabel_2.setBounds(377, 10, 45, 15);
+		contentPane.add(lblNewLabel_2);
+		
+		JButton tb_exit = new JButton("Exit");
+		tb_exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			if(DB.dbconn != null)DB.DBClose();
+			dispose();
+			JOptionPane.showMessageDialog(null, "SIMPLE MEMO 종료중");
+			System.out.println("종료중");
+			System.exit(0);
+			}
+		});
+		tb_exit.setForeground(new Color(153, 50, 204));
+		tb_exit.setFont(new Font("굴림", Font.BOLD, 16));
+		tb_exit.setBackground(new Color(255, 182, 193));
+		tb_exit.setBounds(357, 183, 65, 68);
+		contentPane.add(tb_exit);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("\"HELLO WORLD\"");
+		lblNewLabel_1_1.setForeground(new Color(255, 182, 193));
+		lblNewLabel_1_1.setFont(new Font("굴림", Font.BOLD, 37));
+		lblNewLabel_1_1.setBounds(61, 77, 335, 55);
+		contentPane.add(lblNewLabel_1_1);
+		
+		t_pw = new JPasswordField();
+		t_pw.setBounds(49, 222, 126, 29);
+		contentPane.add(t_pw);
+	}
+}

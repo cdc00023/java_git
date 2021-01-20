@@ -1,0 +1,106 @@
+package com.swschool.youn;
+
+//메인메뉴 화면
+
+import java.awt.BorderLayout;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Home extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField t_name;
+	private JTable t_memo;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Home frame = new Home();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Home() {
+		setTitle("SIMPLE MEMO - Home");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(240, 248, 255));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		t_name = new JTextField();
+		t_name.setBounds(12, 10, 217, 21);
+		contentPane.add(t_name);
+		t_name.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Home");
+		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 16));
+		lblNewLabel.setBounds(370, 9, 52, 21);
+		contentPane.add(lblNewLabel);
+		
+		JButton tb_userEdit = new JButton("Edit");
+		tb_userEdit.setFont(new Font("굴림", Font.BOLD, 12));
+		tb_userEdit.setBounds(241, 9, 60, 23);
+		contentPane.add(tb_userEdit);
+		
+		t_memo = new JTable();
+		t_memo.setBounds(12, 41, 289, 210);
+		contentPane.add(t_memo);
+		
+		JButton tb_new = new JButton("New");
+		tb_new.setFont(new Font("굴림", Font.BOLD, 12));
+		tb_new.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		tb_new.setBounds(313, 176, 109, 75);
+		contentPane.add(tb_new);
+		
+		JButton tb_de = new JButton("삭제");
+		tb_de.setFont(new Font("굴림", Font.BOLD, 12));
+		tb_de.setBounds(313, 143, 109, 23);
+		contentPane.add(tb_de);
+		
+		JButton tb_up = new JButton("업데이트");
+		tb_up.setFont(new Font("굴림", Font.BOLD, 12));
+		tb_up.setBounds(313, 112, 109, 23);
+		contentPane.add(tb_up);
+		
+		JButton tb_out = new JButton("Out");
+		tb_out.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();//현재 창을 닫고
+				Login login = new Login();//새 창 객체 생성
+				login.setVisible(true);//새 창 객체를 보이도록 
+			}
+		});	
+		tb_out.setFont(new Font("굴림", Font.BOLD, 12));
+		tb_out.setBounds(362, 37, 60, 23);
+		contentPane.add(tb_out);
+	}
+}

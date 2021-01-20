@@ -1,0 +1,126 @@
+package com.swshcool.youn_app;
+
+//로그인 화면
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class login extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField t_id;
+	private JTextField t_pw;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					login frame = new login();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public login() {
+		setTitle("SIMPLE MEMO");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(176, 196, 222));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("ID");
+		lblNewLabel.setForeground(new Color(153, 50, 204));
+		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 16));
+		lblNewLabel.setBounds(12, 183, 25, 30);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblPw = new JLabel("PW");
+		lblPw.setForeground(new Color(153, 50, 204));
+		lblPw.setFont(new Font("굴림", Font.BOLD, 16));
+		lblPw.setBounds(12, 216, 25, 39);
+		contentPane.add(lblPw);
+		
+		t_id = new JTextField();
+		t_id.setBounds(49, 185, 126, 30);
+		contentPane.add(t_id);
+		t_id.setColumns(20);
+		
+		t_pw = new JTextField();
+		t_pw.setColumns(20);
+		t_pw.setBounds(49, 222, 126, 30);
+		contentPane.add(t_pw);
+		
+		JButton tb_login = new JButton("Login");
+		tb_login.setBackground(new Color(255, 182, 193));
+		tb_login.setForeground(new Color(153, 50, 204));
+		tb_login.setFont(new Font("굴림", Font.BOLD, 16));
+		tb_login.setBounds(181, 183, 87, 68);
+		contentPane.add(tb_login);
+		
+		JButton tb_join = new JButton("Join");
+		tb_join.setFont(new Font("굴림", Font.BOLD, 16));
+		tb_join.setBackground(new Color(255, 182, 193));
+		tb_join.setForeground(new Color(153, 50, 204));
+		tb_join.setBounds(275, 183, 65, 68);
+		contentPane.add(tb_join);
+		
+		JLabel lblNewLabel_1 = new JLabel("\"HELLO WORLD\"");
+		lblNewLabel_1.setForeground(new Color(153, 50, 204));
+		lblNewLabel_1.setFont(new Font("굴림", Font.BOLD, 37));
+		lblNewLabel_1.setBounds(45, 66, 335, 55);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Login");
+		lblNewLabel_2.setForeground(new Color(153, 50, 204));
+		lblNewLabel_2.setFont(new Font("굴림", Font.BOLD, 16));
+		lblNewLabel_2.setBounds(377, 10, 45, 15);
+		contentPane.add(lblNewLabel_2);
+		
+		JButton tb_exit = new JButton("Exit");
+		tb_exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			if(DB.dbconn != null)DB.DBClose();
+			dispose();
+			JOptionPane.showMessageDialog(null, "SIMPLE MEMO 종료중");
+			System.out.println("종료중");
+			System.exit(0);
+			}
+		});
+		tb_exit.setForeground(new Color(153, 50, 204));
+		tb_exit.setFont(new Font("굴림", Font.BOLD, 16));
+		tb_exit.setBackground(new Color(255, 182, 193));
+		tb_exit.setBounds(346, 183, 76, 68);
+		contentPane.add(tb_exit);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("\"HELLO WORLD\"");
+		lblNewLabel_1_1.setForeground(new Color(255, 182, 193));
+		lblNewLabel_1_1.setFont(new Font("굴림", Font.BOLD, 37));
+		lblNewLabel_1_1.setBounds(61, 77, 335, 55);
+		contentPane.add(lblNewLabel_1_1);
+	}
+}

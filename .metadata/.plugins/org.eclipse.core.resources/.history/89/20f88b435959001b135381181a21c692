@@ -1,0 +1,105 @@
+package com.swshcool.youn_app;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+
+public class Join extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField t_id;
+	private JTextField t_pw;
+	private JTextField t_name;
+	private JTextField t_email;
+	
+	private String id;
+	private String pw;
+	private String name;
+	private String email;		
+	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Join frame = new Join();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Join() {
+		setTitle("SIMEPLE MEMO - Join");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 394, 234);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Join");
+		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 12));
+		lblNewLabel.setBounds(341, 10, 25, 15);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("PW");
+		lblNewLabel_1.setFont(new Font("굴림", Font.BOLD, 12));
+		lblNewLabel_1.setBounds(35, 88, 25, 15);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("ID");
+		lblNewLabel_1_1.setFont(new Font("굴림", Font.BOLD, 12));
+		lblNewLabel_1_1.setBounds(35, 51, 25, 15);
+		contentPane.add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("NAME");
+		lblNewLabel_1_2.setFont(new Font("굴림", Font.BOLD, 12));
+		lblNewLabel_1_2.setBounds(35, 127, 36, 15);
+		contentPane.add(lblNewLabel_1_2);
+		
+		JLabel lblNewLabel_1_3 = new JLabel("E-MEIL");
+		lblNewLabel_1_3.setFont(new Font("굴림", Font.BOLD, 12));
+		lblNewLabel_1_3.setBounds(35, 163, 50, 15);
+		contentPane.add(lblNewLabel_1_3);
+		
+		t_id = new JTextField();
+		t_id.setBounds(95, 48, 155, 21);
+		contentPane.add(t_id);
+		t_id.setColumns(10);
+		
+		t_pw = new JTextField();
+		t_pw.setColumns(10);
+		t_pw.setBounds(95, 85, 155, 21);
+		contentPane.add(t_pw);
+		
+		t_name = new JTextField();
+		t_name.setColumns(10);
+		t_name.setBounds(95, 124, 155, 21);
+		contentPane.add(t_name);
+		
+		t_email = new JTextField();
+		t_email.setColumns(10);
+		t_email.setBounds(95, 160, 155, 21);
+		contentPane.add(t_email);
+		
+		JButton btnNewButton = new JButton("JOIN");
+		btnNewButton.setFont(new Font("굴림", Font.BOLD, 16));
+		btnNewButton.setBounds(279, 110, 87, 68);
+		contentPane.add(btnNewButton);
+	}
+}

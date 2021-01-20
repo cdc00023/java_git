@@ -1,0 +1,164 @@
+package com.swschool.youn;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import com.swcodingschool.guibasic.DBUtil;
+import com.swcodingschool.guibasic.Login;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
+
+public class Join extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField t_id;
+	private JTextField t_name;
+	private JTextField t_email;
+	
+	private String id;
+	private String pw;
+	private String name;
+	private String email;		
+	private JPasswordField t_pw;
+	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Join frame = new Join();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Join() {
+		setTitle("SIMEPLE MEMO - Join");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 394, 234);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Join");
+		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 12));
+		lblNewLabel.setBounds(341, 10, 25, 15);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("PW");
+		lblNewLabel_1.setFont(new Font("굴림", Font.BOLD, 12));
+		lblNewLabel_1.setBounds(35, 88, 25, 15);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("ID");
+		lblNewLabel_1_1.setFont(new Font("굴림", Font.BOLD, 12));
+		lblNewLabel_1_1.setBounds(35, 51, 25, 15);
+		contentPane.add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("NAME");
+		lblNewLabel_1_2.setFont(new Font("굴림", Font.BOLD, 12));
+		lblNewLabel_1_2.setBounds(35, 127, 36, 15);
+		contentPane.add(lblNewLabel_1_2);
+		
+		JLabel lblNewLabel_1_3 = new JLabel("E-MEIL");
+		lblNewLabel_1_3.setFont(new Font("굴림", Font.BOLD, 12));
+		lblNewLabel_1_3.setBounds(35, 163, 50, 15);
+		contentPane.add(lblNewLabel_1_3);
+		
+		t_id = new JTextField();
+		t_id.setBounds(95, 48, 155, 21);
+		contentPane.add(t_id);
+		t_id.setColumns(10);
+		
+		t_name = new JTextField();
+		t_name.setColumns(10);
+		t_name.setBounds(95, 124, 155, 21);
+		contentPane.add(t_name);
+		
+		t_email = new JTextField();
+		t_email.setColumns(10);
+		t_email.setBounds(95, 160, 155, 21);
+		contentPane.add(t_email);
+		
+		JButton tb_join = new JButton("JOIN");
+		tb_join.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			if (DB.dbconn == null) DB.DBConnect();
+			name = t_name.getText();
+			email = t_email.getText();
+			
+			String pw = new String(t_pw.getPassword());
+			
+			String aql = "INSERT INTO tbluser(id, password, name, email) VALUES(?,?,?,?)";
+				
+			try {				
+				PreparedStatement pstmt = DB.dbconn.prepareStatement(sql);
+				pstmt.setString(1, name); 
+				pstmt.setString(2, pw);
+				pstmt.setString(3, name);
+				pstmt.setString(4, email);
+
+				// update()문을 실행하면 영향 받은 레크드의 갯수를 반환한다.
+				int rs = pstmt.executeUpdate();
+				if (rs == 1) {
+					JOptionPane.showMessageDialog(null, "정상적으로 저장하였습니다.");
+					// 현재 창을 닫고 로그인 창으로 이동
+					dispose();
+					Login login = new Login();
+					login.setVisible(true);
+				}
+
+			} catch (SQLException esave) {
+				System.out.println("[MyMSG]SQL Exception Error : " + esave.getMessage());
+				esave.printStackTrace();
+			}
+		}
+	
+});
+		tb_join.setFont(new Font("굴림", Font.BOLD, 16));
+		tb_join.setBounds(279, 110, 87, 68);
+		contentPane.add(tb_join);
+		
+		t_pw = new JPasswordField();
+		t_pw.setBounds(95, 85, 155, 21);
+		contentPane.add(t_pw);
+		
+		JButton tb_reset = new JButton("Reset");
+		tb_reset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				t_id.setText("");
+				t_pw.setText("");
+				t_name.setText("");
+				t_email.setText("");
+				
+			}
+		});
+		tb_reset.setFont(new Font("굴림", Font.BOLD, 16));
+		tb_reset.setBounds(279, 69, 87, 34);
+		contentPane.add(tb_reset);
+	}
+}

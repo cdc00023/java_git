@@ -1,0 +1,311 @@
+package com.swshcool.youn_guibasic;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+import com.swcodingschool.guibasic.DBUtil;
+
+import javax.swing.border.EtchedBorder;
+import javax.swing.JTextField;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class BookInfo extends JFrame {
+
+	//클래스(전역)변수
+	private JPanel contentPane;
+	private JTextField txtTitle;
+	private JTextField txtAuthor;
+	private JTextField txtPublisherID;
+	private JTextField txtPrice;
+	private JTable tbl;
+	private JButton btnExit;
+	private JButton btnReset;
+	private JButton btnSave;
+	private JButton btnUpdate;
+	private JButton btnRelode;
+	private JButton btnDelete;
+	
+	DefaultTableModel model;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					BookInfo frame = new BookInfo();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public BookInfo() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// 프레임이 뜰 때 테이블을 로드한다.
+				LoadTbl();
+			}
+		});
+
+		
+		JLabel lblNewLabel = new JLabel("도서정보 관리 시스템");
+		lblNewLabel.setFont(new Font("궁서체", Font.BOLD, 32));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(89, 10, 379, 48);
+		getContentPane().add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("도서명");
+		lblNewLabel_1.setBounds(12, 85, 57, 15);
+		getContentPane().add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("저  자");
+		lblNewLabel_1_1.setBounds(12, 122, 57, 15);
+		getContentPane().add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("출판사");
+		lblNewLabel_1_2.setBounds(12, 158, 57, 15);
+		getContentPane().add(lblNewLabel_1_2);
+		
+		JLabel lblNewLabel_1_3 = new JLabel("정  가");
+		lblNewLabel_1_3.setBounds(12, 196, 57, 15);
+		getContentPane().add(lblNewLabel_1_3);
+		
+		textField = new JTextField();
+		textField.setBounds(89, 82, 116, 21);
+		getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(89, 119, 116, 21);
+		getContentPane().add(textField_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(89, 155, 116, 21);
+		getContentPane().add(textField_2);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(89, 193, 116, 21);
+		getContentPane().add(textField_3);
+		
+		table = new JTable();
+		table.setBounds(228, 85, 335, 200);
+		getContentPane().add(table);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(466, 309, 97, 23);
+		getContentPane().add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Reset");
+		btnNewButton_1.setBounds(12, 309, 78, 23);
+		getContentPane().add(btnNewButton_1);
+		
+		JButton btnNewButton_1_1 = new JButton("New button");
+		btnNewButton_1_1.setBounds(102, 309, 78, 23);
+		getContentPane().add(btnNewButton_1_1);
+		
+		JButton btnNewButton_1_2 = new JButton("New button");
+		btnNewButton_1_2.setBounds(192, 309, 78, 23);
+		getContentPane().add(btnNewButton_1_2);
+		
+		JButton btnNewButton_1_3 = new JButton("New button");
+		btnNewButton_1_3.setBounds(282, 309, 78, 23);
+		getContentPane().add(btnNewButton_1_3);
+		
+		JButton btnNewButton_1_4 = new JButton("New button");
+		btnNewButton_1_4.setBounds(372, 309, 78, 23);
+		getContentPane().add(btnNewButton_1_4);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+			load 	
+				
+				
+				
+			}
+		});
+		setTitle("BookInfomation");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 633, 464);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		
+		JButton btnExit = new JButton("Exit");
+		btnExit.setBackground(Color.GRAY);
+		btnExit.setBounds(508, 392, 97, 23);
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// DB가 연결되어진 상태라면... 연결을 종료하고...
+				if(DBUtil.dbconn != null) DBUtil.DBClose();
+				dispose(); // 윈도우 창을 닫겠다
+				System.exit(0);// 전체 프로그램을 정상적으로 종료
+			}
+		});
+		contentPane.setLayout(null);
+		contentPane.add(btnExit);
+		
+		JLabel lblNewLabel = new JLabel("도서정보 관리 시스템");
+		lblNewLabel.setBorder(UIManager.getBorder("Spinner.border"));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("궁서체", Font.BOLD, 30));
+		lblNewLabel.setBounds(130, 20, 357, 48);
+		contentPane.add(lblNewLabel);
+		
+		JButton btnReset = new JButton("Reset");
+		btnReset.setBounds(12, 392, 81, 23);
+		contentPane.add(btnReset);
+		
+		JButton btnSave = new JButton("Save");
+		btnSave.setBounds(105, 392, 81, 23);
+		contentPane.add(btnSave);
+		
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.setBounds(198, 392, 81, 23);
+		contentPane.add(btnUpdate);
+		
+		JButton btnRelode = new JButton("Relode");
+		btnRelode.setBounds(384, 392, 81, 23);
+		contentPane.add(btnRelode);
+		
+		JButton btnDelete = new JButton("Delete");
+		btnDelete.setBounds(291, 392, 81, 23);
+		contentPane.add(btnDelete);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(24, 89, 218, 283);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		txtTitle = new JTextField();
+		txtTitle.setColumns(10);
+		txtTitle.setBounds(90, 10, 116, 21);
+		panel.add(txtTitle);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("도서명");
+		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_1.setBounds(12, 10, 57, 15);
+		panel.add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("저자");
+		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_2.setBounds(12, 46, 57, 15);
+		panel.add(lblNewLabel_1_2);
+		
+		txtAuthor = new JTextField();
+		txtAuthor.setColumns(10);
+		txtAuthor.setBounds(90, 46, 116, 21);
+		panel.add(txtAuthor);
+		
+		txtPublisherID = new JTextField();
+		txtPublisherID.setColumns(10);
+		txtPublisherID.setBounds(90, 82, 116, 21);
+		panel.add(txtPublisherID);
+		
+		JLabel lblNewLabel_1_3 = new JLabel("출판사");
+		lblNewLabel_1_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_3.setBounds(12, 82, 57, 15);
+		panel.add(lblNewLabel_1_3);
+		
+		JLabel lblNewLabel_1 = new JLabel("정가");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(12, 118, 57, 15);
+		panel.add(lblNewLabel_1);
+		
+		txtPrice = new JTextField();
+		txtPrice.setColumns(10);
+		txtPrice.setBounds(90, 118, 116, 21);
+		panel.add(txtPrice);
+		
+		tbl = new JTable();
+		tbl.setBounds(276, 89, 308, 283);
+		contentPane.add(tbl);
+	}//end of BookInfo
+	
+	private void LoadTbl() { 
+//	private = new DefaulttTableModel();
+	model = new DefaultTableModel();
+	model.addColumn("ID");
+	model.addColumn("도서명");
+	model.addColumn("저  자");
+	model.addColumn("출판사");
+	model.addColumn("정  가");
+	//데이터베이스 연결이 안되어 있으면
+	if(DBUtil.dbconn == null) DBUtil.DBConnect();
+	String sql = "SELECT * FROM tblBook";
+	
+	try {
+		PreparedStatement pstmt = DBUtil.dbconn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQury();
+		while(rs.next()) {
+			model.addRow(new Object[] {
+					rs.getInt(1), //bookid
+					rs.getString(2), //도서제목
+					rs.getString(3), //author
+					rs.getString(4), //publisher
+					rs.getInt(5) //price
+			});
+		}//end of while
+		rs.close();
+		pstmt.close();
+		
+		tblBook.setModel(model);
+		tblBook.setAutoResizeMode(0);
+		tblBook.getColumnModel().getColumn(0).setPreferredWidth(50); //bookID
+		tblBook.getColumnModel().getColumn(1).setPreferredWidth(150); //Title
+		tblBook.getColumnModel().getColumn(2).setPreferredWidth(80); //Author
+		tblBook.getColumnModel().getColumn(3).setPreferredWidth(80); //publisher
+		tblBook.getColumnModel().getColumn(4).setPreferredWidth(50); //price
+		
+		JOptionPane.showMessageDialog(tbl, rs);
+		
+	}catch(SQLException eload) {
+		JOptionPane.showMessageDialog(null, "테이블 로딩 오류");
+		eload.printSrackTrace();
+	}
+	
+	
+}//end of LoadTBL()
+}//end of class

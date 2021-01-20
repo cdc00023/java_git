@@ -8,6 +8,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import com.swcordingschool.book.DBUtil;
 
@@ -22,7 +23,10 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
@@ -35,10 +39,14 @@ public class User extends JFrame {
 	private JTable t_user;
 	private JPasswordField t_pw;
 	
+	DefaultTableModel model;
+	
 	private String b_id;
 	private String b_pw;
 	private String b_name;
 	private String b_email;	
+	private JTable tblUserinfo;
+	private int userid4update;
 
 	/**
 	 * Launch the application.
@@ -60,6 +68,14 @@ public class User extends JFrame {
 	 * Create the frame.
 	 */
 	public User() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				
+				LoadTbl();
+			}
+		});
+		
 		setTitle("SIMPLE MEMO - User");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -132,7 +148,7 @@ public class User extends JFrame {
 		tb_out.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();//현재 창을 닫고
-				Home home = new Home();//새 창 객체 생성
+				Home home = new Home("");//새 창 객체 생성
 				home.setVisible(true);//새 창 객체를 보이도록 
 			}
 		});	
@@ -145,21 +161,64 @@ public class User extends JFrame {
 		t_pw.setBounds(89, 70, 224, 21);
 		contentPane.add(t_pw);
 		
-		scrollPane_DataTbl.setColumnHeaderView(t_user);	
 		
-		JScrollPane scrollPane_DataTbl = new JScrollPane();
-		scrollPane_DataTbl.setBounds(12, 154, 296, 97);
-		contentPane.add(scrollPane_DataTbl);
 		
-		t_user = new JTable();
-		t_userinfo.addMouseListener(new MouseAdapter() {		
-		@Override
-		public void mouseClicked(MouseEvent e) {
+		JScrollPane scroll = new JScrollPane();
+		scroll.setBounds(12, 154, 296, 97);	
+		contentPane.add(scroll);				
+						
+		tblUserinfo = new JTable();					
+		tblUserinfo.addMouseListener(new MouseAdapter() {		
+			@Override
+			public void mouseClicked(MouseEvent e) {
 
-			int row = t_uerinfo.getSelectedRow();
-			userid4update = Integer.parseInt(t_userinfo.getModel().getValueAt(row, 0).toString());
-			setTxtField(userid4update);			
+				int row = tblUserinfo.getSelectedRow();
+				userid4update = Integer.parseInt(tblUserinfo.getModel().getValueAt(row, 0).toString());
+			//setTxtField(userid4update);			
 		}
 	});	
+		scroll.setViewportView(tblUserinfo);
 	}
+	
+	private void LoadTbl() {
+		// 데이터베이스 연결이 안되어 있으면 연결
+		if (DB.dbconn == null)
+			DB.DBConnect();
+
+		model = new DefaultTableModel();
+		model.addColumn("name");
+		model.addColumn("pw");
+		model.addColumn("email");
+
+		String sql = "SELECT * FROM t_user";
+
+		try {
+			PreparedStatement pstmt = DB.dbconn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				model.addRow(new Object[] { 
+						rs.getInt(1), // username
+						rs.getString(2), // userpwd
+						rs.getString(3), // useremail
+
+				});
+			} // end of while
+			
+			rs.close();
+			pstmt.close();
+
+			t_user.setModel(model);
+			t_user.setAutoResizeMode(0);
+			t_user.getColumnModel().getColumn(0).setPreferredWidth(50);
+			t_user.getColumnModel().getColumn(1).setPreferredWidth(80);
+			t_user.getColumnModel().getColumn(2).setPreferredWidth(80);
+
+		} catch (SQLException srce) {
+			JOptionPane.showMessageDialog(null, "테이블 로딩 중 오류가 발생하였습니다.");
+			srce.printStackTrace();
+		}
+	}// end of LoadTbl
+	
+			
 }//end of class

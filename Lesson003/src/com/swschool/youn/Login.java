@@ -28,6 +28,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField t_id;
 	private JPasswordField t_pw;
+	String usrname;
 
 	/**
 	 * Launch the application.
@@ -96,6 +97,7 @@ public class Login extends JFrame {
 					ResultSet rs = pstmt.executeQuery();
 					
 					if(rs.next()) { // 해당 계정이 있으면, 정상 로그인
+					    usrname = rs.getString(4);
 						rs.close();
 						pstmt.close();
 						//System.out.println("로그인성공");
@@ -106,7 +108,7 @@ public class Login extends JFrame {
 							User user = new User();
 							user.setVisible(true);
 						}else {
-							Home apphome = new Home(); // 새 프레임을 생성하고
+							Home apphome = new Home(usrname); // 새 프레임을 생성하고
 							apphome.setVisible(true); // 프레임을 보이도록 한다.
 						}
 					}else {// 해당 계정이 없음

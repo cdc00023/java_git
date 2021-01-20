@@ -8,8 +8,12 @@ import java.sql.SQLException;
  * 데이터베이스 연결과 관련한 메서드를 정의하는 클래스
  */
 public class DBUtil {
-	static final String JDBCDRV = "com.mysql.cj.jdbc.Driver";
-	static final String URL = "jdbc:mysql://localhost:3306/javadb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+//	static final String JDBCDRV = "com.mysql.cj.jdbc.Driver";
+//	static final String URL = "jdbc:mysql://localhost:3306/javadb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	
+	static final String JDBCDRV = "oracle.jdbc.driver.OracleDriver";
+	static final String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
+	
 	static final String DBUSER = "java";
 	static final String DBPASSWD = "1234";
 	

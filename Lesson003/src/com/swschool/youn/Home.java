@@ -48,6 +48,9 @@ public class Home extends JFrame {
 	private String b_name;
 	private String b_email;	
 	private int userid4update;
+	
+	private int srchCriteria = 99;
+	private int srchMethod = 99;
 
 	/**
 	 * Launch the application.
@@ -141,7 +144,7 @@ public class Home extends JFrame {
 		tb_de.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-				String sql = "DELETE FROM t_user WHERE d_number = ?";
+				String sql = "DELETE FROM t_memo WHERE b_number = ?";
 				
 				try {
 					PreparedStatement pstmt = DB.dbconn.prepareStatement(sql);
@@ -217,8 +220,53 @@ public class Home extends JFrame {
 		JButton tb_s = new JButton("검 색");
 		tb_s.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String sql = "";
+				String srchString = "";
+
+				model = new DefaultTableModel();
+				model.addColumn("number");
+				model.addColumn("name");
+				model.addColumn("memo");	
+								
+				srchString = t_sharch.getText();
+				System.out.println(srchCriteria + ",  " + srchMethod);
+				if (srchCriteria == 99 || srchMethod == 99 || srchString == "") {				
+				} else {
 				
-				
+					try {
+						PreparedStatement pstmt = DBUtil.dbconn.prepareStatement(sql);
+						if (srchMethod == 0)
+							pstmt.setString(1, "%" + srchString + "%");
+						else
+							pstmt.setString(1, srchString);
+
+						ResultSet rs = pstmt.executeQuery();
+
+						while (rs.next()) {
+							model.addRow(new Object[] { rs.getInt(1), // userid
+									rs.getString(2), // username
+									rs.getString(3), // userpwd
+									
+							});
+						} // end of while
+						rs.close();
+						pstmt.close();
+
+						t_memo.setModel(model);
+						t_memo.setAutoResizeMode(0);
+						t_memo.getColumnModel().getColumn(0).setPreferredWidth(50);// userid
+						t_memo.getColumnModel().getColumn(1).setPreferredWidth(80);// username
+						t_memo.getColumnModel().getColumn(2).setPreferredWidth(80);// userpwd
+		
+
+						// JOptionPane.showMessageDialog(null, "테이블을 로딩하였습니다.");
+
+					} catch (SQLException srce) {
+						JOptionPane.showMessageDialog(null, "테이블 로딩 중 오류가 발생하였습니다.");
+						srce.printStackTrace();
+					}
+
+				} // end of 검색기준과 방법에 따른 sql구문 구성
 				
 			}
 		});
@@ -249,7 +297,7 @@ public class Home extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				int row = t_memo.getSelectedRow();
 				userid4update = Integer.parseInt(t_memo.getModel().getValueAt(row, 0).toString());	
-				//setTxtField(userid4update);
+				setTxtField(userid4update);
 			}
 		});
 		scroll.setViewportView(t_memo);
@@ -297,5 +345,26 @@ public class Home extends JFrame {
 		}
 	}// end of LoadTbl
 	
+	private void setTxtField(int id) {
 	
+		String sql = "SELECT * FROM t_memo WHERE b_id = ?";
+		
+		try {
+			PreparedStatement pstmt = DB.dbconn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				t_f.setText(rs.getString(1)); 
+
+				
+			}// end of while
+		}catch(SQLException eset) {
+			JOptionPane.showMessageDialog(null, "해당 레코드 조회 중 오류가 발생하였습니다.");
+			//eset.printStackTrace();
+		}
+		
+		
+	
+}
+
 }

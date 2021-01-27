@@ -39,6 +39,7 @@ public class User extends JFrame {
 	private JTable t_user;
 	private JPasswordField t_pw;
 	
+	
 	DefaultTableModel model;
 	
 	private String b_id;
@@ -174,9 +175,12 @@ public class User extends JFrame {
 
 				int row = tblUserinfo.getSelectedRow();
 				userid4update = Integer.parseInt(tblUserinfo.getModel().getValueAt(row, 0).toString());
-			//setTxtField(userid4update);			
+			setTxtField(userid4update);			
 		}
+
+			
 	});	
+		tblUserinfo.setModel(new DefaultTableModel());
 		scroll.setViewportView(tblUserinfo);
 	}
 	
@@ -193,32 +197,58 @@ public class User extends JFrame {
 		String sql = "SELECT * FROM t_user";
 
 		try {
-			PreparedStatement pstmt = DB.dbconn.prepareStatement(sql);
+			PreparedStatement pstmt = DB.dbconn.prepareStatement(sql);			
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				model.addRow(new Object[] { 
-						rs.getInt(1), // username
-						rs.getString(2), // userpwd
-						rs.getString(3), // useremail
+						rs.getInt(2), // username
+						rs.getString(3), // userpwd
+						rs.getString(4), // useremail
 
 				});
 			} // end of while
-			
+		
 			rs.close();
 			pstmt.close();
 
 			t_user.setModel(model);
 			t_user.setAutoResizeMode(0);
-			t_user.getColumnModel().getColumn(0).setPreferredWidth(50);
-			t_user.getColumnModel().getColumn(1).setPreferredWidth(80);
-			t_user.getColumnModel().getColumn(2).setPreferredWidth(80);
-
+			t_user.getColumnModel().getColumn(2).setPreferredWidth(50);
+			t_user.getColumnModel().getColumn(3).setPreferredWidth(80);
+			t_user.getColumnModel().getColumn(4).setPreferredWidth(80);
+			
+		
 		} catch (SQLException srce) {
 			JOptionPane.showMessageDialog(null, "테이블 로딩 중 오류가 발생하였습니다.");
 			srce.printStackTrace();
+		
 		}
+		
+		
 	}// end of LoadTbl
-	
+		
+		private void setTxtField(int id) {
+		
+			String sql = "SELECT * FROM t_user WHERE b_id = ?";
 			
+			try {
+				PreparedStatement pstmt = DB.dbconn.prepareStatement(sql);
+				pstmt.setInt(1, id);
+				ResultSet rs = pstmt.executeQuery();
+				while(rs.next()) {
+					t_name.setText(rs.getString(3)); // username
+					t_pw.setText(rs.getString(2));   // userpwd
+					t_email.setText(rs.getString(4)); 
+					
+				}// end of while
+			}catch(SQLException eset) {
+				JOptionPane.showMessageDialog(null, "해당 레코드 조회 중 오류가 발생하였습니다.");
+				//eset.printStackTrace();
+			}
+			
+			
+	
+	
+	}//end of setTxtField	
 }//end of class

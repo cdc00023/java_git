@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<!--  이 페이지는 /hello page로의 링크를 포함한다.
+      이 페이지 구성후 hello.html을 구성한다.
+ -->
+<html xmlns:="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="UTF-8">
+<title>Spring Security Example</title>
+</head>
+<body>
+	<h1>Welcome!</h1>
+	<p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
+</body>
+</html>

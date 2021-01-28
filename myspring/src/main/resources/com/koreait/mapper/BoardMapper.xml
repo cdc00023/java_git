@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koreait.mapper.BoardMapper">
+
+	<select id="getList" resultType="com.koreait.domain.BoardVO">
+		<![CDATA[
+		select b_num, b_subject, b_name, b_wdate, b_udate from   
+    		(select /*+ INDEX_DESC(tbl_board pk_b_num) */ 
+    		rownum rn, b_num, b_subject, b_name, b_wdate, b_udate 
+    		from tbl_board where rownum <= #{pageNum} * #{pageAmount})
+    	where rn > (#{pageNum} -1) * #{pageAmount}
+    	]]>
+	</select>
+	
+	<select id="getTotal" resultType="int">
+	select count(b_num) from tbl_board
+	</select>
+
+	<insert id="insert">
+		insert into tbl_board (b_num, b_subject, b_contents, b_name,
+		b_password)
+		values (seq_b_num.nextval, #{b_subject}, #{b_contents},
+		#{b_name}, #{b_password})
+		
+	</insert>
+
+	<select id="view" resultType="com.koreait.domain.BoardVO">
+		select * from tbl_board where b_num = #{b_num}
+	</select>
+	
+	<select id="getAuth" resultType="int">
+		select count(b_num) from tbl_board 
+		where b_num = #{b_num} and b_password = #{b_password}
+	</select>
+	
+	<delete id="delete">
+		delete from tbl_board where b_num = #{b_num}		
+	</delete>
+	
+	<update id="update">
+		update tbl_board set b_subject = #{b_subject},
+		b_contents = #{b_contents}, b_name = #{b_name}
+		where b_num = #{b_num}
+	</update>
+	
+
+</mapper>

@@ -49,8 +49,8 @@ public class Home extends JFrame {
 	private String b_email;	
 	private int userid4update;
 	
-	private int srchCriteria = 99;
-	private int srchMethod = 99;
+	private int srchCriteria = 0;
+	private int srchMethod = 0;
 
 	/**
 	 * Launch the application.
@@ -243,7 +243,8 @@ public class Home extends JFrame {
 						ResultSet rs = pstmt.executeQuery();
 
 						while (rs.next()) {
-							model.addRow(new Object[] { rs.getInt(1), // userid
+							model.addRow(new Object[] { 
+									rs.getInt(1), // userid
 									rs.getString(2), // username
 									rs.getString(3), // userpwd
 									

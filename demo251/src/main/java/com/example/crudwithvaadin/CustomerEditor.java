@@ -3,6 +3,12 @@ package com.example.crudwithvaadin;
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyNotifier;
@@ -15,23 +21,43 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 
+@Controller
+@RequestMapping(path="/demo")
 @SpringComponent
 @UIScope
 public class CustomerEditor extends VerticalLayout implements KeyNotifier {
-
+	@Autowired	
 	private final CustomerRepository repository;
 
-	/**
-	 * The currently edited customer
-	 */
 	private Customer customer;
+	
+	@PostMapping(path="/add")
+	public @ResponseBody String addNewCustomer (@RequestParam String firstName, 
+			@RequestParam String lastName) {
+		
+		Customer c = new Customer();
+		c.setFirstName(firstName);
+		c.setLastName(lastName);
+		
+		return "saved";
+	
+	}
+	
+	
+	
+	@GetMapping(path="all")
+	public @ResponseBody Iterable<Customer> getAllCustomer() {
+	return repository.findAll();
+	}
 
-	/* Fields to edit properties in Customer entity */
-	TextField firstName = new TextField("First name");
+	
+	
+	
+	
+	TextField firstname = new TextField("First name");
 	TextField lastName = new TextField("Last name");
-
+	
 	/* Action buttons */
-	// TODO why more code?
 	Button save = new Button("Save", VaadinIcon.CHECK.create());
 	Button cancel = new Button("Cancel");
 	Button delete = new Button("Delete", VaadinIcon.TRASH.create());
@@ -39,6 +65,8 @@ public class CustomerEditor extends VerticalLayout implements KeyNotifier {
 
 	Binder<Customer> binder = new Binder<>(Customer.class);
 	private ChangeHandler changeHandler;
+	
+	
 
 	@Autowired
 	public CustomerEditor(CustomerRepository repository) {

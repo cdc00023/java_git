@@ -1,4 +1,12 @@
+<<<<<<< HEAD
+<<<<<<< HEAD:Practice003/etc/youn_app/AppHome.java
 package com.swshcool.youn_app;
+=======
+package com.swschool.guibasic;
+>>>>>>> origin/main:Lesson003/src/com/swschool/guibasic/AppHome.java
+=======
+package com.swshcool.youn_app;
+>>>>>>> origin/main
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

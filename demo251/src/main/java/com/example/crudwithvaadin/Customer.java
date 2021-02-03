@@ -2,16 +2,16 @@ package com.example.crudwithvaadin;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-public class Customer {
 
 	@Entity
 	public class Customer {
 
 		@Id
-		@GeneratedValue
-		private Long id;
+		@GeneratedValue(strategy=GenerationType.AUTO)
+		private Integer id;
 
 		private String firstName;
 
@@ -25,15 +25,19 @@ public class Customer {
 			this.lastName = lastName;
 		}
 
-		public Long getId() {
+		public Integer getId() {
 			return id;
+		}
+		
+		public void setId(Integer id) {
+			this.id = id;
 		}
 
 		public String getFirstName() {
 			return firstName;
 		}
 
-		public void setFirstName(String firstName) {
+		public void setFirstName(String firstname) {
 			this.firstName = firstName;
 		}
 
@@ -41,14 +45,15 @@ public class Customer {
 			return lastName;
 		}
 
-		public void setLastName(String lastName) {
+		public void setLastName(String lastname) {
 			this.lastName = lastName;
 		}
 
 		@Override
 		public String toString() {
-			return String.format("Customer[id=%d, firstName='%s', lastName='%s']", id,
+			return String.format("Customer[id=%d, firstname='%s', lastname='%s']", id,
 					firstName, lastName);
 		}
 
 	}
+	

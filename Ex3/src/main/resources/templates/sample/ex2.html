@@ -20,8 +20,16 @@
 
     <ul>
         <li th:each="dto, state : ${list}">
-            <span th:if>
+            <span th:if="${dto.sno % 5 == 0}" th:text="${'--------------------' +dto.sno}"></span>
+        <span th:unless="${dto.sno % 5 == 0}" th:text="${dto.first}"></span>
         </li>
+    </ul>
+
+
+    <ul>
+        <th:block th:each="dto: ${list}">
+            <li th:text="${dto.sno % 5 == 0}?{dto.sno}:${dto.first}"></li>
+        </th:block>
     </ul>
 
 </body>

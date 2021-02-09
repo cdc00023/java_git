@@ -1,1 +1,1 @@
-SELECT * FROM hellosql.foods;
+SELECT * FROM javadb.guestbook;

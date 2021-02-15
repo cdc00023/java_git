@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <!-- Mobile Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Site Metas -->
+        <title>Freshshop - Ecommerce Bootstrap 4 HTML Template</title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Site Icons -->
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/resources/static/css/bootstrap.min.css">
+        <!-- Site CSS -->
+        <link rel="stylesheet" href="/resources/static/css/style.css">
+        <!-- Responsive CSS -->
+        <link rel="stylesheet" href="/resources/static/css/responsive.css">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/resources/static/css/custom.css">
+
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/resource/static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/resource/static/css/bootstrap.min.css">
+    <script type="text/javascript" src="/resource/static/js/bootstrap.min.js"></script>
+</head>
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <h1 class="mt-4">Shop List Page
+            <span>
+                <a th:href="@{/shop/register}">
+                    <button type="button" class="btn btn-outline-primary">
+                        REGISTER
+                    </button>
+                </a>
+            </span>
+        </h1>
+
+        <form action="/shop/list" method="get" id="searchForm">
+            <div class="input-group">
+                <input type="hidden" name="page" value = "1">
+                <div class="input-group-prepend">
+                    <select class="custom-select" name="type">
+                        <option th:selected="${pageRequestDTO.type == null}">-------</option>
+                        <option value="n" th:selected="${pageRequestDTO.type =='n'}" >제품</option>
+                        <option value="c" th:selected="${pageRequestDTO.type =='c'}"  >내용</option>
+                        <option value="p"  th:selected="${pageRequestDTO.type =='p'}" >가격</option>
+                        <option value="o"  th:selected="${pageRequestDTO.type =='o'}" >수량</option>
+                        <option value="nc"  th:selected="${pageRequestDTO.type =='nc'}" >제품 + 내용</option>
+                        <option value="nco"  th:selected="${pageRequestDTO.type =='nco'}" >제품 + 내용 + 가격</option>
+                    </select>
+                </div>
+                <input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
+                <div class="input-group-append" id="button-addon4">
+                    <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
+                    <button class="btn btn-outline-secondary btn-clear" type="button">Clear</button>
+                </div>
+            </div>
+        </form>
+
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Number</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Count</th>
+                <th scope="col">Regdate</th>
+            </tr>
+            </thead>
+        <tbody>
+
+        <tr th:each="dto : ${result.dtoList}" >
+            <th scope="row">
+                <a th:href="@{/shop/read(number=${dto.number},page=${result.page},
+                    type=${pageRequestDTO.type} ,
+                    keyword = ${pageRequestDTO.keyword})}">
+                    [[${dto.number}]]
+                </a>
+            </th>
+            <td>[[${dto.name}]]</td>
+            <td>[[${dto.price}]]</td>
+            <td>[[${dto.count}]]</td>
+            <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+        </tr>
+
+        </tbody>
+        </table>
+
+        <!--PAGENATION 페이지 처리-->
+        <!--페이지 처리 시작-->
+        <ul class="pagination h-100 justify-content-center align-items-center">
+            <li class="page-item " th:if="${result.prev}">
+                <a class="page-link" th:href="@{/shop/list(page= ${result.start -1},
+                    type=${pageRequestDTO.type} ,
+                    keyword = ${pageRequestDTO.keyword} ) }"  tabindex="-1">Previous</a>
+            </li>
+
+            <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+                <a class="page-link" th:href="@{/shop/list(page = ${page},
+                   type=${pageRequestDTO.type} ,
+                   keyword = ${pageRequestDTO.keyword}  )}">
+                    [[${page}]]
+                </a>
+            </li>
+
+            <li class="page-item" th:if="${result.next}">
+                <a class="page-link" th:href="@{/shop/list(page= ${result.end + 1},
+                    type=${pageRequestDTO.type} ,
+                    keyword = ${pageRequestDTO.keyword} )}">Next</a>
+            </li>
+        </ul>
+        <!--페이지 처리 끝-->
+
+
+
+
+    </th:block> <!-- th:fragment="content"-->
+
+</th:block> <!-- th:replace -->
+
+</html>

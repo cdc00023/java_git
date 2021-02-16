@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
-@RequestMapping("sample")
+@RequestMapping("/sample")
 @Log4j2
 public class SampleController {
 

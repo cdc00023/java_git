@@ -23,7 +23,7 @@ public class ShopController {
     @GetMapping({"/"})
     public String index() {
 
-        return "redirect/shop/list";
+        return "redirect:/shop/list";
     }
 
     @GetMapping("/list")

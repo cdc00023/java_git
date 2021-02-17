@@ -1,9 +1,12 @@
 package com.example.jeong.DTO;
 
+import lombok.Data;
+
+@Data
 public class UserDTO {
 
-    private String id;
-    private String passwd;
-    private String name;
+    private String u_id;
+    private String u_passwd;
+    private String u_name;
 
 }

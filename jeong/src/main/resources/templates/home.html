@@ -103,7 +103,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="home.html"><img src="images/logo.png" class="logo" alt=""></a>
+                <a class="navbar-brand" th:href="@{/home}"><img src="images/logo.png" class="logo" alt=""></a>
             </div>
             <!-- End Header Navigation -->
 
@@ -199,7 +199,7 @@
                     <div class="col-md-12">
                         <h1 class="m-b-20"><strong>안녕하세요 <br> Freshshop 입니다</strong></h1>
                         <p class="m-b-40">  <br>  </p>
-                        <p><a class="btn hvr-hover" href="#">쇼핑하기</a></p>
+                        <p><a class="btn hvr-hover" th:href="@{/shop}">쇼핑하기</a></p>
                     </div>
                 </div>
             </div>
@@ -211,7 +211,7 @@
                     <div class="col-md-12">
                         <h1 class="m-b-20"><strong>Welcome To <br> Freshshop</strong></h1>
                         <p class="m-b-40">신선한 야채와 과일을 <br> 신속하게 배달해드립니다.</p>
-                        <p><a class="btn hvr-hover" href="#">쇼핑하기</a></p>
+                        <p><a class="btn hvr-hover" th:href="@{/shop}">쇼핑하기</a></p>
                     </div>
                 </div>
             </div>
@@ -223,7 +223,7 @@
                     <div class="col-md-12">
                         <h1 class="m-b-20"><strong> Freshshop에 오신 것을 <br> 환영합니다 </strong></h1>
                         <p class="m-b-40"> Welcome To <br> Freshshop </p>
-                        <p><a class="btn hvr-hover" href="#">쇼핑하기</a></p>
+                        <p><a class="btn hvr-hover" th:href="@{/shop}">쇼핑하기</a></p>
                     </div>
                 </div>
             </div>
@@ -368,8 +368,7 @@
 
 <!-- Start copyright  -->
 <div class="footer-copyright">
-    <p class="footer-company">All Rights Reserved. &copy; 2018 <a href="#">ThewayShop</a> Design By :
-        <a href="https://html.design/">html design</a></p>
+    <p class="footer-company">All Rights Reserved. &copy; 2021 Shop Design By : Youn</p>
 </div>
 <!-- End copyright  -->
 

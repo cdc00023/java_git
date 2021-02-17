@@ -6,6 +6,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+<!--    <style>-->
+<!--        * {-->
+<!--            margin : 20; /*바깥여백*/-->
+<!--            padding : 10; /*안 여백*/-->
+<!--            font-family: 'Gaegu', cursive;-->
+<!--            font-size: 20px;-->
+<!--        }-->
+<!--    </style>-->
+
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -54,29 +63,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
-                <div class="text-slid-box">
-                    <div id="offer-box" class="carouselTicker">
-                        <ul class="offer-box">
-                            <li>
-                                <i class="fab fa-opencart"></i> 20% off TOMATO
-                            </li>
-                            <li>
-                                <i class="fab fa-opencart"></i> 50% - 80% off APPLE
-                            </li>
-                            <li>
-                                <i class="fab fa-opencart"></i> Off 10%! BANANA
-                            </li>
-                            <li>
-                                <i class="fab fa-opencart"></i> Off 50%! MELON
-                            </li>
-
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -92,14 +79,14 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="home.html"><img src="images/logo.png" class="logo" alt=""></a>
+                <a class="navbar-brand" th:href="@{/admin-home}"><img src="images/logo.png" class="logo" alt=""></a>
             </div>
             <!-- End Header Navigation -->
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
-                    <li class="nav-item active"><a class="nav-link" th:href="@{/home}">Home</a></li>
+                    <li class="nav-item active"><a class="nav-link" th:href="@{/admin-home}">Home</a></li>
                     <li class="dropdown">
                         <a th:href="@{/shop}" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">SHOP</a>
                         <ul class="dropdown-menu">
@@ -177,27 +164,36 @@
 
 
 
-
-
+<!--  <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}"> ------>
 
 <th:block th:fragment="content">
-    <h1 class="mt-4">Shop Join Page</h1>
+    <h1 class="mt-4">제품 등록 페이지입니다.</h1>
 
-    <from th:action="@{/shop/register}" th:method="post">
+    <from th:action="@{/register}" th:method="post">
         <div class="from-group">
-            <label >Title</label>
-            <input type="text" class="form-control" name="title" placeholder="Enter Title" >
+            <label >제품 이름</label>
+            <input type="text" class="form-control" name="s_product" placeholder="제품명을 입력하세요" >
+        </div>
+        <div class="from-group">
+            <label >이미지</label>
+            <input type="file" class="form-control" name="s_image" >
         </div>
         <div class="form-group">
-            <label >Content</label>
-            <textarea class="form-control" rows="5" name="content"></textarea>
+            <label >설명</label>
+            <textarea class="form-control" rows="5" name="s_content" placeholder="제품에 대한 설명을 입력하세요"></textarea>
         </div>
         <div class="form-group">
-            <label >Writer</label>
-            <input type="text" class="form-control" name="writer" placeholder="Enter Writer">
+            <label >가격</label>
+            <input type="text" class="form-control" name="s_price"></textarea>
+        </div>
+        <div class="form-group">
+            <label >수량</label>
+            <input type="text" class="form-control" name="s_count" >
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">올리기</button>
     </from>
 </th:block>
+
+
 

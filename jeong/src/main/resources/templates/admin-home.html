@@ -104,14 +104,14 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="home.html"><img src="images/logo.png" class="logo" alt=""></a>
+                <a class="navbar-brand" th:href="@{/admin-home}"><img src="images/logo.png" class="logo" alt=""></a>
             </div>
             <!-- End Header Navigation -->
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
-                    <li class="nav-item active"><a class="nav-link" th:href="@{/home}">Home</a></li>
+                    <li class="nav-item active"><a class="nav-link" th:href="@{/admin-home}">Home</a></li>
                     <li class="dropdown">
                         <a th:href="@{/shop}" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">SHOP</a>
                         <ul class="dropdown-menu">
@@ -369,8 +369,7 @@
 
 <!-- Start copyright  -->
 <div class="footer-copyright">
-    <p class="footer-company">All Rights Reserved. &copy; 2018 <a href="#">ThewayShop</a> Design By :
-        <a href="https://html.design/">html design</a></p>
+    <p class="footer-company">All Rights Reserved. &copy; 2021 Shop Design By : Youn</p>
 </div>
 <!-- End copyright  -->
 

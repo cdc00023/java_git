@@ -15,43 +15,43 @@ public class Shop extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long s_productID;
+    private Long productID;
 
     @Column(length = 100, nullable = false)
-    private String s_product;
+    private String product;
 
     @Column(length = 200, nullable = false)
-    private String s_image;
+    private String image;
 
     @Column(length = 1500, nullable = false)
-    private String s_content;
+    private String content;
 
     @Column(length = 50, nullable = false)
-    private String s_price;
+    private String price;
 
     @Column(length = 50, nullable = false)
-    private int s_count;
+    private int count;
 
 
-    public void changes_productID(long s_productID){
-        this.s_productID = s_productID;
+    public void changeproductID(long productID){
+        this.productID = productID;
     }
 
-    public void changes_product(String s_product){
-        this.s_product = s_product;
+    public void changeproduct(String product){
+        this.product = product;
     }
 
-    public void changes_image(String s_image){
-        this.s_image = s_image;
+    public void changeimage(String image){
+        this.image = image;
     }
 
-    public void changes_content(String s_content){
-        this.s_content = s_content;
+    public void changecontent(String content){
+        this.content = content;
     }
 
-    public void changes_price(String s_price){
-        this.s_price = s_price;
+    public void changeprice(String price){
+        this.price = price;
     }
 
-    public void changes_count(int s_count){ this.s_count = s_count; }
+    public void changecount(int count){ this.count = count; }
 }

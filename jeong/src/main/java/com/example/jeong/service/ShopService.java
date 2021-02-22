@@ -8,35 +8,45 @@ import com.example.jeong.entity.Shop;
 public interface ShopService {
     Long register(ShopDTO dto);
 
-    ShopDTO read(Long s_productID);
+    ShopDTO read(Long productID);
 
     PagingDTO<ShopDTO, Shop> getList(PageDTO pageDTO);
 
     void modify(ShopDTO dto);
 
-    void remove(Long s_productID);
+    void remove(Long productID);
 
     default Shop dtoToEntity(ShopDTO dto) {
         Shop entity = Shop.builder()
-                .s_productID(dto.getS_productID())
-                .s_product(dto.getS_product())
-                .s_image(dto.getS_image())
-                .s_content(dto.getS_content())
-                .s_price(dto.getS_price())
-                .s_count(dto.getS_count())
+                .productID(dto.getProductID())
+                .product(dto.getProduct())
+                .image(dto.getImage())
+                .content(dto.getContent())
+                .price(dto.getPrice())
+                .count(dto.getCount())
                 .build();
         return entity;
     }
 
+    /*
+     private Long productID;
+    private String product;
+    private String image;
+    private String content;
+    private String price;
+    private int count;
+    private LocalDateTime regDate, modDate;
+
+*/
+
     default ShopDTO entityToDto(Shop entity) {
         ShopDTO dto = ShopDTO.builder()
-
-                .s_productID(entity.getS_productID())
-                .s_product(entity.getS_product())
-                .s_image(entity.getS_image())
-                .s_content(entity.getS_content())
-                .s_price(entity.getS_price())
-                .s_count(entity.getS_count())
+                .productID(entity.getProductID())
+                .product(entity.getProduct())
+                .image(entity.getImage())
+                .content(entity.getContent())
+                .price(entity.getPrice())
+                .count(entity.getCount())
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
                 .build();

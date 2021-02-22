@@ -23,10 +23,10 @@ public class ShopController {
     private final ShopService service;
 
 //    @Autowired
-    @GetMapping("/home")
-    public String home(Model model){
-        return "home";
-    }
+//    @GetMapping("/home")
+//    public String home(Model model){
+//       return "home";
+//    }
 
     @GetMapping("/shop")
     public String shop(Model model){
@@ -61,41 +61,43 @@ public class ShopController {
     @GetMapping({"/"})
     public String home(){
 
-        return "redirect/home";
+        return "redirect:/home";
     }
 
-//    @GetMapping("/home")
-//    public void home(PageDTO pageDTO, Model model){
-//        //log.info("home............." + pageDTO);
-//        model.addAttribute("result", service.getList(pageDTO));
-//    }
-//
-//
-//    @PostMapping("/register")
-//    public String registerPost(ShopDTO dto, RedirectAttributes redirectAttributes) {
-//        //log.info("dto..." + dto);
-//
-//        Long s_productID = service.register(dto);
-//        redirectAttributes.addFlashAttribute("msg", s_productID);
-//        return "redirect:/home";
-//    }
+    @GetMapping("/home")
+    //public void home(PageDTO pageDTO, ShopDTO dto, Model model){
+   public void home(PageDTO pageDTO, Model model){
+        log.info("home............." + pageDTO);
+        model.addAttribute("result", service.getList(pageDTO));
+       // model.addAttribute("dto", service.dtoToEntity(dto));
+    }
+
+
+    @PostMapping("/register")
+    public String registerPost(ShopDTO dto, RedirectAttributes redirectAttributes) {
+        //log.info("dto..." + dto);
+
+        Long productID = service.register(dto);
+        redirectAttributes.addFlashAttribute("msg", productID);
+        return "redirect:/home";
+    }
 
 
     @GetMapping({"/read", "/modify"})
-    public void read(long s_productID, @ModelAttribute("pageDTO") PageDTO pageDTO, Model model ){
-        //log.info("s_productID: " + s_productID);
-        ShopDTO dto = service.read(s_productID);
+    public void read(long productID, @ModelAttribute("pageDTO") PageDTO pageDTO, Model model ){
+        //log.info("productID: " + productID);
+        ShopDTO dto = service.read(productID);
         model.addAttribute("dto", dto);
     }
     @PostMapping("/remove")
-    public String remove(long s_productID, RedirectAttributes redirectAttributes){
+    public String remove(long productID, RedirectAttributes redirectAttributes){
 
 
-       // log.info("s_productID: " + s_productID);
+       // log.info("productID: " + productID);
 
-        service.remove(s_productID);
+        service.remove(productID);
 
-        redirectAttributes.addFlashAttribute("msg", s_productID);
+        redirectAttributes.addFlashAttribute("msg", productID);
 
         return "redirect:/shop";
 
@@ -116,7 +118,7 @@ public class ShopController {
         redirectAttributes.addAttribute("type", pageDTO.getType());
         redirectAttributes.addAttribute("keyword", pageDTO.getKeyword());
 
-        redirectAttributes.addAttribute("s_productID", dto.getS_productID());
+        redirectAttributes.addAttribute("productID", dto.getProductID());
 
 
         return "redirect:/shop";

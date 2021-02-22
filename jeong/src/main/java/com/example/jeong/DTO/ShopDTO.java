@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
 @Data
 public class ShopDTO {
 
-    private Long s_productID;
-    private String s_product;
-    private String s_image;
-    private String s_content;
-    private String s_price;
-    private int s_count;
+    private Long productID;
+    private String product;
+    private String image;
+    private String content;
+    private String price;
+    private int count;
     private LocalDateTime regDate, modDate;
 
 }

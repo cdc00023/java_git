@@ -27,11 +27,11 @@ public class ShopRepositoryTests {
         IntStream.rangeClosed(1,10).forEach(i -> {
             Shop shop = Shop.builder()
 
-                    .s_product("product...." +i)
-                    .s_image("image...." + (i % 10))
-                    .s_content("Content...." +i)
-                    .s_price("price...." +i)
-                    .s_count(+i)
+                    .product("product...." +i)
+                    .image("image...." + (i % 10))
+                    .content("Content...." +i)
+                    .price("price...." +i)
+                    .count(+i)
 
                     .build();
             System.out.println(shopRepository.save(shop));
@@ -45,11 +45,11 @@ public class ShopRepositoryTests {
         if(result.isPresent()){
             Shop shop = result.get();
 
-            shop.changes_product("Changed product...");
-            shop.changes_image("Changed image...");
-            shop.changes_content("Changed Content...");
-            shop.changes_price("Changed Price...");
-           // shop.changes_count(Integer.parseInt("Changed Count..."));
+            shop.changeproduct("Tomato");
+            shop.changeimage("img/featured/tomato.jpg");
+            shop.changecontent("맛있는 토마토 입니다");
+            shop.changeprice("20000");
+            shop.changecount(Integer.parseInt("50"));
 
             shopRepository.save(shop);
         }

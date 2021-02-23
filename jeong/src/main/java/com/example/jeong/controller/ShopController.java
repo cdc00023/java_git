@@ -28,10 +28,10 @@ public class ShopController {
 //       return "home";
 //    }
 
-    @GetMapping("/shop")
-    public String shop(Model model){
-        return "shop";
-    }
+//    @GetMapping("/shop")
+//    public String shop(Model model){
+//        return "shop";
+//    }
 
     @GetMapping("/cart")
     public String cart(Model model){ return "cart"; }
@@ -58,6 +58,11 @@ public class ShopController {
         return "register";
     }
 
+    @GetMapping("/list")
+    public String list(Model model){
+        return "list";
+    }
+
     @GetMapping({"/"})
     public String home(){
 
@@ -70,6 +75,12 @@ public class ShopController {
         log.info("home............." + pageDTO);
         model.addAttribute("result", service.getList(pageDTO));
        // model.addAttribute("dto", service.dtoToEntity(dto));
+    }
+
+    @GetMapping("/shop")
+    public void shop(PageDTO pageDTO, Model model){
+        log.info("shop............." + pageDTO);
+        model.addAttribute("result", service.getList(pageDTO));
     }
 
 

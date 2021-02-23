@@ -144,7 +144,7 @@
 <th:block th:fragment="content">
     <h3 class="mt-4">제품 등록 페이지입니다.</h3>
 
-    <from th:action="@{/register}" th:method="post">
+    <form th:action="@{/register}" th:method="post">
         <div class="from-group">
             <label >제품 이름</label>
             <input type="text" class="form-control" name="product" placeholder="제품명을 입력하세요" >
@@ -167,7 +167,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">등록하기</button>
-    </from>
+    </form>
 </th:block>
 
 

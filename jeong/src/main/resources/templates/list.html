@@ -23,8 +23,6 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
-
-
 <body>
 <!-- Page Preloder -->
 <div id="preloder">
@@ -95,18 +93,18 @@
                     <div class="header__top__right">
 
 
-                            <a th:href="@{/login}"><i class="fa fa-user"></i> Login</a>
-                        </div>
+                        <a th:href="@{/login}"><i class="fa fa-user"></i> Login</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    <a th:href="@{/home}"><img src="img/logo.png" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -118,12 +116,6 @@
                             <ul class="header__menu__dropdown">
                                 <li><a th:href="@{/shop-detail}">Shop Details</a></li>
                                 <li><a th:href="@{/cart}">Cart</a></li>
-
-<!--                                <h1 th:inline="button">제품 등록하기[[${#httpServletRequest.remoteUser}]]!</h1>-->
-<!--                                <form th:action="@{/logout}" method="post">-->
-<!--                                    <input type="submit" value="Sign Out"/>-->
-<!--                                </form>-->
-
                             </ul>
                         </li>
                     </ul>
@@ -142,6 +134,8 @@
             <i class="fa fa-bars"></i>
         </div>
     </div>
+
+
 </header>
 <!-- Header Section End --------------------------------------------------------------------------->
 
@@ -149,128 +143,76 @@
 
 
 
-<!-- Hero Section Begin -->
-<section class="hero">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="hero__categories">
-                    <div class="hero__categories__all">
-                        <i class="fa fa-bars"></i>
-                        <span>All departments</span>
-                    </div>
-                    <ul>
-                        <li><a href="#">과일</a></li>
-                        <li><a href="#">야채</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-9">
-                <div class="hero__search">
-                    <div class="hero__search__form">
-                        <form action="#">
-                            <div class="hero__search__categories">
-                                All Categories
-                                <span class="arrow_carrot-down"></span>
-                            </div>
-                            <input type="text" placeholder="What do yo u need?">
-                            <button type="submit" class="site-btn">SEARCH</button>
-                        </form>
-                    </div>
 
-                </div>
-                <div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
-                    <div class="hero__text">
-                        <span>FRUIT FRESH</span>
-                        <h2>100% 유기농<br />과일과 채소</h2>
-                        <p>신속배달이 무료!</p>
-                        <a th:href="@{/shop}" class="primary-btn">쇼핑하기</a>
-                    </div>
-                </div>
-            </div>
+<!--  <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}"> ------>
+
+
+<div id="nav">
+    <div id="main_lnb">
+        <ul>
+            <li><a th:href="@{/book/}">MAIN</a></li>
+            <li><a th:href="@{/book/list}">BOOKS</a></li>
+            <li><a th:href="@{/review/list}">REVIEW</a></li>
+        </ul>
+    </div>
+</div>
+<div id="contents">
+    <div id="aside">
+        <p class="leftmenu"><a th:href="@{/book/list}">BOOKS</a></p>
+        <p class="leftmenu"><a th:href="@{/review/list}">REVIEW</a></p>
+    </div>
+    <div id="section">
+        <div id="article">
+            <p class="title">BOOK LIST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <!-- &nbsp; : 띄어쓰기 -->
+                <span>
+                    <a th:href="@{/book/register}">
+                        <button type="button" class="btn btn-outline-primary" style="float : right;">&nbsp;REGISTER&nbsp;</button>
+                    </a>
+                </span>
+            </p>
+            <table class ="table table-striped", border="1">
+
+                <thead>
+                <tr>
+                    <th scope="col" width="100px">#</th>
+                    <th scope="col" width="330px">Book Title</th>
+                    <th scope="col" width="130px">Publisher</th>
+                    <th scope="col" width="130px">Publish Day</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="book : ${result.dtoList}">
+                    <td th:value="@{book.pno}" th:align="center">[[${book.pno}]]</td>
+                    <td> <a th:href="@{/book/read(pno=${book.pno},page=${result.page})}">[[${book.name}]]</a></td>
+                    <td th:value="@{book.publisher}" th:align="center">[[${book.publisher}]]</td>
+                    <td th:value="@{book.pday}" th:align="center">[[${book.pday}]]</td>
+                </tr>
+
+                </tbody>
+
+            </table>
+            <p>
+                <!-- pagination -->
+            <ul class="pagination h-100 justify-content-center align-items-center">
+
+                <li class="page-item" th:if="${result.prev}">
+                    <a class="page-link" th:href="@{/book/list(page = ${result.start - 1})}" tabindex="-1">Previous</a>
+                </li>
+
+                <li th:class="'page-item' + ${result.page == page ? 'active':''}" th:each="page : ${result.pageList}">
+                    <a class="page-link" th:href="@{/book/list(page = ${page})}">[[${page}]]</a>
+                </li>
+
+                <li class="page-item" th:if="${result.next}">
+                    <a class="page-link" th:href="@{/book/list(page = ${result.end + 1})}">Next</a>
+                </li>
+
+            </ul>
+            </p>
         </div>
     </div>
-</section>
-<!-- Hero Section End -->
-
-<!-- Categories Section Begin -->
-
-<section class="categories">
-    <div class="container">
-        <div class="row">
-            <div class="categories__slider owl-carousel">
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/img-pro-02.jpg">
-                        <h5><a href="#">Tomato</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/instagram-img-04.jpg">
-                        <h5><a href="#">Lemmon</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/instagram-img-06.jpg">
-                        <h5><a href="#">Orange</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/img-pro-04.jpg">
-                        <h5><a href="#">papaya</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/instagram-img-08.jpg">
-                        <h5><a href="#">Strawberry</a></h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Categories Section End -->
-
-
-
-<!-- Featured Section Begin -->
-<section class="featured spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2>Featured Product</h2>
-                </div>
-                <div class="featured__controls">
-                    <ul>
-                        <li class="active" data-filter="*">All</li>
-                        <li data-filter=".Fruit">Fruit</li>
-                        <li data-filter=".vegetables">Vegetables</li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row featured__filter">
-            <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat" th:each="dto:${result.dtoList}">
-                <div class="featured__item">
-                    <div class="featured__item__pic set-bg" > <!--  "img/featured/tomato.jpg" data-setbg= -->
-                      <img th:src="@{${dto.image}}"/>
-                        <ul class="featured__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="featured__item__text">
-                        <h6><a href="#">[[${dto.product}]]</a></h6>
-                        <h5>[[${dto.price}]]</h5>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-<!-- Featured Section End -->
-
+</div>
 
 
 <!-- Footer Section Begin----------------------------- -->

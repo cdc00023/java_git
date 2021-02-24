@@ -31,7 +31,12 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public Long register(ShopDTO dto) {
-        log.info("DTO------------------------");
+        log.info("passed DTO------------------------");
+        log.info(dto);
+        // image 경로명 추가
+        String pathImage = "img/featured/" + dto.getImage();
+        dto.setImage(pathImage);
+        log.info("modified DTO------------------------");
         log.info(dto);
         Shop entity = dtoToEntity(dto);
         log.info(entity);

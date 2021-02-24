@@ -19,7 +19,7 @@ public class PageDTO {
     private String keyword;
     public PageDTO(){
         this.page = 1;
-        this.size = 10;
+        this.size = 8;
     }
     public Pageable getPageable(Sort sort){
         return PageRequest.of(page -1, size, sort);

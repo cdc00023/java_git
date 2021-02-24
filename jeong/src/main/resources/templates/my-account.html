@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
+
+
 <body>
 <!-- Page Preloder -->
 <div id="preloder">
@@ -57,11 +59,7 @@
         <ul>
             <li class="active"><a th:href="@{/home}">Home</a></li>
             <li><a th:href="@{/shop}">Shop</a></li>
-            <li><a href="#">Pages</a>
-                <ul class="header__menu__dropdown">
-                    <li><a th:href="@{/shop-detail}">Shop Details</a></li>
-                    <li><a th:href="@{/cart}">Cart</a></li>
-                </ul>
+            <li><a th:href="@{/cart}">Cart</a>
             </li>
         </ul>
     </nav>
@@ -84,16 +82,15 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__left">
                         <ul>
-                            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                            <li>wellcome</li>
+                            <li><i class="fa fa-envelope"></i> hello@gmail.com</li>
+                            <li>어서오세요 OGANI 입니다</li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__right">
-
-
-                        <a th:href="@{/login}"><i class="fa fa-user"></i> Login</a>
+                        <a th:href="@{/login}"><i class="fa fa-user"></i> Login</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a th:href="@{/join}">Join</a>
                     </div>
                 </div>
             </div>
@@ -112,12 +109,15 @@
                     <ul>
                         <li class="active"><a th:href="@{/home}">Home</a></li>
                         <li><a th:href="@{/shop}">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a th:href="@{/shop-detail}">Shop Details</a></li>
-                                <li><a th:href="@{/cart}">Cart</a></li>
-                            </ul>
-                        </li>
+                        <li><a th:href="@{/cart}">Cart</a></li>
+
+                        <!--                                <h1 th:inline="button">제품 등록하기[[${#httpServletRequest.remoteUser}]]!</h1>-->
+                        <!--                                <form th:action="@{/logout}" method="post">-->
+                        <!--                                    <input type="submit" value="Sign Out"/>-->
+                        <!--                                </form>-->
+
+                    </ul>
+                    </li>
                     </ul>
                 </nav>
             </div>

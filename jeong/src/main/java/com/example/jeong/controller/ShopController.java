@@ -36,8 +36,8 @@ public class ShopController {
     @GetMapping("/cart")
     public String cart(Model model){ return "cart"; }
 
-    @GetMapping("/shop-detail")
-    public String shopDetail(Model model){ return "shop-detail"; }
+//    @GetMapping("/shop-detail")
+//    public String shopDetail(Model model){ return "shop-detail"; }
 
     @GetMapping("/my-account")
     public String myAccount(Model model){ return "my-account"; }
@@ -48,20 +48,10 @@ public class ShopController {
     @GetMapping("/login")
     public String login(Model model){ return "login"; }
 
-    @GetMapping("/admin-home")
-    public String adminHome(Model model){
-        return "admin-home";
-    }
-
-    @GetMapping("/register")
-    public String register(Model model){
-        return "register";
-    }
-
-    @GetMapping("/list")
-    public String list(Model model){
-        return "list";
-    }
+//    @GetMapping("/list")
+//    public String list(Model model){
+//        return "list";
+//    }
 
     @GetMapping({"/"})
     public String home(){
@@ -83,6 +73,10 @@ public class ShopController {
         model.addAttribute("result", service.getList(pageDTO));
     }
 
+    @GetMapping("/register")
+    public void register(){
+        log.info("regiser get...");
+    }
 
     @PostMapping("/register")
     public String registerPost(ShopDTO dto, RedirectAttributes redirectAttributes) {
@@ -90,11 +84,11 @@ public class ShopController {
 
         Long productID = service.register(dto);
         redirectAttributes.addFlashAttribute("msg", productID);
-        return "redirect:/home";
+        return "redirect:/shop";
     }
 
 
-    @GetMapping({"/read", "/modify"})
+    @GetMapping({"/shop-detail", "/modify"})
     public void read(long productID, @ModelAttribute("pageDTO") PageDTO pageDTO, Model model ){
         //log.info("productID: " + productID);
         ShopDTO dto = service.read(productID);
@@ -110,7 +104,7 @@ public class ShopController {
 
         redirectAttributes.addFlashAttribute("msg", productID);
 
-        return "redirect:/shop";
+        return "redirect:/shop-detail";
 
     }
 
@@ -132,7 +126,7 @@ public class ShopController {
         redirectAttributes.addAttribute("productID", dto.getProductID());
 
 
-        return "redirect:/shop";
+        return "redirect:/shop-detail";
     }
 
 }
